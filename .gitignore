@@ -2,3 +2,11 @@
 
 # Ignore .class files in bin/
 bin/
+
+# Ignore .DS_Store files from OS X
+*.DS_Store
+
+# Ignore Eclipse project files
+.settings/
+*.classpath
+*.project
