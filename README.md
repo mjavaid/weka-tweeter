@@ -16,12 +16,12 @@ weka-tweeter
 Project overview.
 
 ## Project Tasks
-| Task | Status | Notes |
-| ---- |:------:| ----- |
-| [ARFF Generation](#arff-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | Initialize implementation complete. Code cleanup left. |
-| [ARFF Optimization](#arff-optimization) | **Unassigned** | |
-| [ARFF Optimization](#arff-optimization) | **Unassigned** | |
-| [Report Creation](#report-creation) | **Unassigned** | |
+| Task | Assignment | Status |
+| ---- |:------:|:-----:|
+| [ARFF Generation](#arff-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `Complete` |
+| [ARFF Optimization](#arff-optimization) | **Unassigned** | `In Progress` |
+| [ARFF Optimization](#arff-optimization) | **Unassigned** | `Not Started` |
+| [Report Creation](#report-creation) | **Unassigned** | `Not Started` |
 
 #### ARFF Generation
 Task details for ARFF Generation.
