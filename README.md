@@ -13,13 +13,18 @@ weka-tweeter
 * [Important Links](#important-links)
 
 ## Overview
-Project overview.
+This project develops an [arff file](http://www.cs.waikato.ac.nz/ml/weka/arff.html) generator that can be used with [Weka](http://www.cs.waikato.ac.nz/ml/weka) to perform Message Polarity Classification. The data corpus is comprised of approximately 8000 twitter messages that have either a **Postive**, **Negative**, **Neutral** or **Objective** opinion. For the purposes of this assignment, the **Neutral** and **Objective** opinions are classified collectively as **Neutral**.
+
+Once the arff file has been generated, it shall be passed to the **Weka** application to generate classifications. The following classifiers from Weka shall be used:
+* [Support Vector Machine (SMO in Weka)](http://en.wikipedia.org/wiki/Support_vector_machine)
+* [NaiveBayes](http://en.wikipedia.org/wiki/Naive_Bayes_classifier)
+* [Decision Trees (J48 in Weka)](http://en.wikipedia.org/wiki/C4.5_algorithm)
 
 ## Project Tasks
 | Task | Assignment | Status |
 | ---- |:------:|:-----:|
 | [ARFF Generation](#arff-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `Complete` |
-| [ARFF Optimization](#arff-optimization) | **Unassigned** | `In Progress` |
+| [ARFF Optimization](#arff-optimization) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `In Progress` |
 | [ARFF Optimization](#arff-optimization) | **Unassigned** | `Not Started` |
 | [Report Creation](#report-creation) | **Unassigned** | `Not Started` |
 
