@@ -25,7 +25,7 @@ Once the arff file has been generated, it shall be passed to the **Weka** applic
 | ---- |:------:|:-----:|
 | [ARFF Generation](#arff-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `Complete` |
 | [ARFF Optimization](#arff-optimization) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `In Progress` |
-| [ARFF Optimization](#arff-optimization) | **Unassigned** | `Not Started` |
+| [Result Generation](#result-generation) | **Unassigned** | `Not Started` |
 | [Report Creation](#report-creation) | **Unassigned** | `Not Started` |
 
 #### ARFF Generation
@@ -44,4 +44,5 @@ Task details for Report Generation
 * [Question Statement](http://www.site.uottawa.ca/~diana/csi4107/A2_2014.htm)
 * [Assignment Corpus](http://www.site.uottawa.ca/~diana/csi4107/semeval_twitter_data.txt)
 * [Weka Download Center](http://www.cs.waikato.ac.nz/ml/weka/downloading.html)
+* [SnowballStemmber Jar](http://weka.wikispaces.com/file/view/snowball-20051019.jar/82917267/snowball-20051019.jar)
 
