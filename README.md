@@ -18,10 +18,10 @@ Project overview.
 ## Project Tasks
 | Task | Status | Notes |
 | ---- |:------:| ----- |
-| [Project Tasks](#project-tasks) | Unassigned | |
-| [ARFF Optimization](#arff-optimization) | Unassigned | |
-| [ARFF Optimization](#arff-optimization) | Unassigned | |
-| [Report Creation](#report-creation) | Unassigned | |
+| [ARFF Generation](#arff-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | Initialize implementation complete. Code cleanup left. |
+| [ARFF Optimization](#arff-optimization) | **Unassigned** | |
+| [ARFF Optimization](#arff-optimization) | **Unassigned** | |
+| [Report Creation](#report-creation) | **Unassigned** | |
 
 #### ARFF Generation
 Task details for ARFF Generation.
