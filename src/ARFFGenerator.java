@@ -54,6 +54,7 @@ public class ARFFGenerator {
 		try {
 			fis = new FileInputStream(dataPath);
 			reader = new BufferedReader(new InputStreamReader(fis));
+			PreProcessor preprocessor = new PreProcessor();
 			
 			/*
 			 * Read data from the corpus file and create a data entry for each corpus document
@@ -63,7 +64,7 @@ public class ARFFGenerator {
 				String [] lineValues = line.split("\t");
 				lineValues[2] = (lineValues[2].split("\""))[1];
 				double [] dataInstance = new double[tweetData.numAttributes()];
-				dataInstance[0] = tweetData.attribute(0).addStringValue(lineValues[3]);
+				dataInstance[0] = tweetData.attribute(0).addStringValue(preprocessor.preprocess(lineValues[3]));
 				if(lineValues[2].equals("objective")) dataInstance[1] = categories.indexOf("neutral"); 
 				else dataInstance[1] = categories.indexOf(lineValues[2]);
 				tweetData.add(new Instance(1.0, dataInstance));
