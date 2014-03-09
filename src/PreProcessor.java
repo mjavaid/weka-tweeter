@@ -33,7 +33,8 @@ public class PreProcessor {
 	 * @return The preprocessed document string.
 	 */
 	public String preprocess(String input) {
-		String output = removeStopwords(input);
+		String output = regexHandler(input);
+		output = removeStopwords(output);
 		output = stem(output);
 		return output;
 	}
@@ -48,11 +49,36 @@ public class PreProcessor {
 	private String stem(String input) {
 		if(this.STEMMER == null) return input;
 		String output = "";
+		String stemmed = "";
 		String [] tokens = input.split(" ");
 		for(int i = 0; i < tokens.length; i++) {
-			output += this.STEMMER.stem(tokens[i]) + " ";
+			stemmed = this.STEMMER.stem(tokens[i]);
+			output += stemmed + " ";
 		}
 		return output.trim();
+	}
+	
+	private String regexHandler(String input) {
+		String output = "";
+		String [] tokens = input.split(" ");
+		for(int i=0; i < tokens.length; i++) {
+			if(!(tokens[i].startsWith("http") || tokens[i].startsWith("https") || tokens[i].startsWith("www"))) {
+				output += tokens[i] + " ";
+			}
+		}
+		output = output.replaceAll("[0-9]","");
+		output = output.replaceAll("[\\W&&[^\\s{1}]]", "");
+		output = output.replaceAll("\\w{1}&&[\\s]", "");
+		return output;
+	}
+	
+	private boolean isInteger(String token) {
+		try {
+			Integer.parseInt(token);
+		} catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -67,7 +93,8 @@ public class PreProcessor {
 		String output = "";
 		String [] tokens = input.split(" ");
 		for(int i = 0; i < tokens.length; i++) {
-			if(! (this.STOPWORD_HANDLER.is(tokens[i]))) {
+			isInteger(tokens[i]);
+			if(!(this.STOPWORD_HANDLER.is(tokens[i]))) {
 				output += tokens[i] + " ";
 			}
 		}
@@ -77,7 +104,7 @@ public class PreProcessor {
 	/*
 	 * PreProcessor testing code in absence of JUnit Testing
 	 */
-	public static void main(String[] args) {    
+	public static void main(String[] args) {
 		String testString = "shortly functional Dave nowhere Alice NOWHERE";
 		PreProcessor p = new PreProcessor();
 		String text = p.preprocess(testString);
