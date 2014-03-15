@@ -95,6 +95,7 @@ The following table lists the result of Weka Classification for the ARFF file ge
 | **NavieBayes** | 53.3057 % | 46.6943 % | 3.64 s |
 | **SMO** | 59.3776 % | 40.6224 % | 126.26 s |
 | **J48** | 54.7165 % | 45.2835 % | 417.33 s |
+| **ZeroR (Baseline)** | 45.4219 % | 54.5781 % | 0 s |
 
 ###### Instance Weighing
 Instance Weighing Optimization
