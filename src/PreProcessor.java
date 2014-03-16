@@ -123,15 +123,6 @@ public class PreProcessor {
 		return output;
 	}
 	
-	private boolean isInteger(String token) {
-		try {
-			Integer.parseInt(token);
-		} catch(NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}
-	
 	/**
 	 * Uses the <code>Stopwrods</code> class that is packaged with <code>Weka</code>
 	 * to remove stopwords from documents in the corpus.
@@ -144,7 +135,6 @@ public class PreProcessor {
 		String output = "";
 		String [] tokens = input.split(" ");
 		for(int i = 0; i < tokens.length; i++) {
-			isInteger(tokens[i]);
 			if(!(this.STOPWORD_HANDLER.is(tokens[i]))) {
 				output += tokens[i] + " ";
 			}
