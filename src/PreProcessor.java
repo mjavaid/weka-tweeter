@@ -45,7 +45,7 @@ public class PreProcessor {
 			fis = new FileInputStream(POSITIVE_WORDS_DATA_FILE);
 			reader = new BufferedReader(new InputStreamReader(fis));
 			String line = reader.readLine();
-			while(line != null){
+			while(line != null) {
 				if(! line.equals("")) this.POSITIVE_WORDS.insert(stem(line.toLowerCase()));
 				line = reader.readLine();
 			}
@@ -54,7 +54,7 @@ public class PreProcessor {
 			fis = new FileInputStream(NEGATIVE_WORDS_DATA_FILE);
 			reader = new BufferedReader(new InputStreamReader(fis));
 			line = reader.readLine();
-			while(line != null){
+			while(line != null) {
 				if(! line.equals("")) this.NEGATIVE_WORDS.insert(stem(line.toLowerCase()));
 				line = reader.readLine();
 			}
@@ -86,9 +86,26 @@ public class PreProcessor {
 	 */
 	public String preprocess(String input, String category) {
 		String output = regexHandler(input);
-		output = removeStopwords(output);
+		output = removeStopwords(output, category);
 		output = stem(output);
 		return output;
+	}
+	
+	public double calculateWeight(String input, String category) {
+		double weight = 1.0;
+		DynamicArray weightWords = null;
+		if(category.equals("positive"))
+			weightWords = this.POSITIVE_WORDS;
+		else if(category.equals("negative")) 
+			weightWords = this.NEGATIVE_WORDS;
+		if(weightWords == null) return weight;
+		String [] tokens = input.split(" ");
+		for(int i = 0; i < tokens.length; i++) {
+			if(weightWords.exists(tokens[i])) {
+				weight++;
+			}
+		}
+		return weight;
 	}
 	
 	/**
@@ -130,26 +147,42 @@ public class PreProcessor {
 	 * @param input A document string in the corpus.
 	 * @return The input string stripped of stopwords.
 	 */
-	private String removeStopwords(String input) {
+	private String removeStopwords(String input, String category) {
 		if(this.STOPWORD_HANDLER == null) return input;
+		boolean isPositive = false;
+		boolean isNegative = false;
+		if(category.equals("positive"))
+			isPositive = true;
+		else if(category.equals("negative"))
+			isNegative = true;
 		String output = "";
 		String [] tokens = input.split(" ");
 		for(int i = 0; i < tokens.length; i++) {
-			if(!(this.STOPWORD_HANDLER.is(tokens[i]))) {
+			if((isPositive && this.POSITIVE_WORDS.exists(stem(tokens[i]))) 
+				|| (isNegative && this.NEGATIVE_WORDS.exists(stem(tokens[i]))) 
+				|| !(this.STOPWORD_HANDLER.is(tokens[i]))) {
 				output += tokens[i] + " ";
 			}
 		}
 		return output.trim();
 	}
 	
+	public void printWords() {
+		System.out.println(this.POSITIVE_WORDS+"\n====\n"+this.NEGATIVE_WORDS);
+	}
+	
 	/*
 	 * PreProcessor testing code in absence of JUnit Testing
 	 */
 	public static void main(String[] args) {
-		String testString = "shortly 123 #test !! a   functional Dave nowhere Alice NOWHERE";
+		//String testString = "some abound accede abhor the";
+		String testString = "taylor swift come ed sheeran june perf new iv heard night";
 		PreProcessor p = new PreProcessor();
-		String text = p.regexHandler(testString);
+		p.printWords();
+		String text = p.preprocess(testString, "positive");
 		System.out.println(text);
+		text = "Im GSP fan hate Nick Diaz wait februari";
+		System.out.println(p.calculateWeight(text, "negative"));
 	}
 
 }

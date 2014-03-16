@@ -60,18 +60,23 @@ public class ARFFGenerator {
 			 * Read data from the corpus file and create a data entry for each corpus document
 			 */
 			String line = reader.readLine();
-			while(line != null){
+			while(line != null) {
 				String category;
 				String [] lineValues = line.split("\t");
 				category = (lineValues[2].split("\""))[1];
+				
 				double [] dataInstance = new double[tweetData.numAttributes()];
 				if(category.equals("objective")) category = "neutral";
-				dataInstance[0] = tweetData.attribute(0).addStringValue(preprocessor.preprocess(lineValues[3], category));
+				String sentence = preprocessor.preprocess(lineValues[3], category);
+				
+				dataInstance[0] = tweetData.attribute(0).addStringValue(sentence);
 				dataInstance[1] = categories.indexOf(category);
-				tweetData.add(new Instance(1.0, dataInstance));
+				Instance tmpInstance = new Instance(1.0, dataInstance);
+				tmpInstance.setWeight(preprocessor.calculateWeight(sentence, category));
+				
+				tweetData.add(tmpInstance);
 				line = reader.readLine();
 			}
-				  
 		} catch (FileNotFoundException ex) {
 			System.err.println("File not found!");
 			System.exit(1);
