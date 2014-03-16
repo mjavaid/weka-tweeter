@@ -109,7 +109,7 @@ The following table lists the result of the Weka Classification for the ARFF fil
 | ---- |:----:|:----:|:----:|
 | **NavieBayes** | 62.7078 % | 37.2922 % | 4.63 s |
 | **SMO** | 69.0511 % | 30.9489 % | 166.37 |
-| **J48** | `54.7165 %` | `45.2835 %` | `417.33 s` |
+| **J48** | 65.6066 % | 34.3934 % | 502.15 s |
 | **ZeroR (Baseline)** | 59.9966 % | 40.0034 % | 0 s |
 
 ====
