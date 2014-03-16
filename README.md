@@ -24,12 +24,12 @@ Once the arff file has been generated, it shall be passed to the **Weka** applic
 * [Decision Trees (J48 in Weka)](http://en.wikipedia.org/wiki/C4.5_algorithm)
 
 ## Project Tasks
-| Task | Assignment | Status |
+| Task | Status |
 | ---- |:------:|:-----:|
-| [ARFF Generation](#arff-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `Complete` |
-| [ARFF Optimization](#arff-optimization) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `In Progress` |
-| [Result Generation](#result-generation) | **Assigned:** [Sajawal Javaid](https://github.com/mjavaid) | `In Progress` |
-| [Report Creation](#report-creation) | **Unassigned** | `Not Started` |
+| [ARFF Generation](#arff-generation) | `Complete` |
+| [ARFF Optimization](#arff-optimization) | `In Progress` |
+| [Result Generation](#result-generation) | `In Progress` |
+| [Report Creation](#report-creation) | `Not Started` |
 
 ====
 
