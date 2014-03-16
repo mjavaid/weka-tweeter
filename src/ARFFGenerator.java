@@ -61,12 +61,13 @@ public class ARFFGenerator {
 			 */
 			String line = reader.readLine();
 			while(line != null){
+				String category;
 				String [] lineValues = line.split("\t");
-				lineValues[2] = (lineValues[2].split("\""))[1];
+				category = (lineValues[2].split("\""))[1];
 				double [] dataInstance = new double[tweetData.numAttributes()];
-				dataInstance[0] = tweetData.attribute(0).addStringValue(preprocessor.preprocess(lineValues[3]));
-				if(lineValues[2].equals("objective")) dataInstance[1] = categories.indexOf("neutral"); 
-				else dataInstance[1] = categories.indexOf(lineValues[2]);
+				if(category.equals("objective")) category = "neutral";
+				dataInstance[0] = tweetData.attribute(0).addStringValue(preprocessor.preprocess(lineValues[3], category));
+				dataInstance[1] = categories.indexOf(category);
 				tweetData.add(new Instance(1.0, dataInstance));
 				line = reader.readLine();
 			}
@@ -79,11 +80,11 @@ public class ARFFGenerator {
 			System.exit(1);
 		} finally {
 			try {
-			reader.close();
-			fis.close();
+				reader.close();
+				fis.close();
 			} catch (IOException ex) {
-			System.err.println("Error closing the file readers!");
-			System.exit(1);
+				System.err.println("Error closing the file readers!");
+				System.exit(1);
 			}
 		}
 		

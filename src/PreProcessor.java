@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import weka.core.Stopwords;
 import weka.core.stemmers.SnowballStemmer;
 
@@ -6,12 +12,18 @@ public class PreProcessor {
 	/**
 	 * <code>SnowballStemmer</code> object that allows for <code>String</code> stemming.
 	 */
-	SnowballStemmer STEMMER = null;
+	private SnowballStemmer STEMMER = null;
 	
 	/**
 	 * <code>Stopwords</code> object that allows for removal of stopwords from <code>String</code> objects.
 	 */
-	Stopwords STOPWORD_HANDLER = null;
+	private Stopwords STOPWORD_HANDLER = null;
+	
+	private final String POSITIVE_WORDS_DATA_FILE = "./Resources/Positive.txt";
+	private final String NEGATIVE_WORDS_DATA_FILE = "./Resources/Negative.txt";
+	
+	private DynamicArray POSITIVE_WORDS = null;
+	private DynamicArray NEGATIVE_WORDS = null;
 	
 	/**
 	 * PreProcessor constructor, that initializes the <code>SnowballStemmer</code> and 
@@ -21,6 +33,46 @@ public class PreProcessor {
 		// TODO
 		this.STEMMER = new SnowballStemmer();
 		this.STOPWORD_HANDLER = new Stopwords();
+		this.POSITIVE_WORDS = new DynamicArray();
+		this.NEGATIVE_WORDS = new DynamicArray();
+		populatePositiveNegativeWords();
+	}
+	
+	private void populatePositiveNegativeWords() {
+		FileInputStream fis = null;
+		BufferedReader reader = null;
+		try {
+			fis = new FileInputStream(POSITIVE_WORDS_DATA_FILE);
+			reader = new BufferedReader(new InputStreamReader(fis));
+			String line = reader.readLine();
+			while(line != null){
+				if(! line.equals("")) this.POSITIVE_WORDS.insert(stem(line.toLowerCase()));
+				line = reader.readLine();
+			}
+			line = null;
+			
+			fis = new FileInputStream(NEGATIVE_WORDS_DATA_FILE);
+			reader = new BufferedReader(new InputStreamReader(fis));
+			line = reader.readLine();
+			while(line != null){
+				if(! line.equals("")) this.NEGATIVE_WORDS.insert(stem(line.toLowerCase()));
+				line = reader.readLine();
+			}
+		} catch (FileNotFoundException ex) {
+			System.err.println("File not found!");
+			System.exit(1);
+		} catch (IOException ex) {
+			System.err.println("Could not read from the file!");
+			System.exit(1);
+		} finally {
+			try {
+				reader.close();
+				fis.close();
+			} catch (IOException ex) {
+				System.err.println("Error closing the file readers!");
+				System.exit(1);
+			}
+		}
 	}
 	
 	/**
@@ -32,7 +84,7 @@ public class PreProcessor {
 	 * @param input A document string in the corpus.
 	 * @return The preprocessed document string.
 	 */
-	public String preprocess(String input) {
+	public String preprocess(String input, String category) {
 		String output = regexHandler(input);
 		output = removeStopwords(output);
 		output = stem(output);
@@ -68,7 +120,6 @@ public class PreProcessor {
 		}
 		output = output.replaceAll("[0-9]","");
 		output = output.replaceAll("[\\W&&[^\\s{1}]]", "");
-		output = output.replaceAll("\\w{1}&&[\\s]", "");
 		return output;
 	}
 	
@@ -105,9 +156,9 @@ public class PreProcessor {
 	 * PreProcessor testing code in absence of JUnit Testing
 	 */
 	public static void main(String[] args) {
-		String testString = "shortly functional Dave nowhere Alice NOWHERE";
+		String testString = "shortly 123 #test !! a   functional Dave nowhere Alice NOWHERE";
 		PreProcessor p = new PreProcessor();
-		String text = p.preprocess(testString);
+		String text = p.regexHandler(testString);
 		System.out.println(text);
 	}
 
