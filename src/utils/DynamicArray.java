@@ -40,6 +40,14 @@ public class DynamicArray<T> {
 		return this.array[index];
 	}
 	
+	public void set(int index, T value) {
+		if(value == null)
+			throw new IllegalArgumentException("null argument provided.");
+		else if(index >= this.size || index < 0)
+			throw new IllegalArgumentException("Invalid array index supplied.");
+		this.array[index] = value;
+	}
+	
 	public boolean exists(T value) {
 		for(int i = 0; i < this.size; i++) {
 			if(this.array[i].equals(value))

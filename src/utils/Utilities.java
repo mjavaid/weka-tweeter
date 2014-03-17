@@ -11,9 +11,15 @@ import weka.core.stemmers.SnowballStemmer;
 
 public class Utilities {
 	
+	public static int ADD_NEW_LINE = 0;
+	public static int NO_NEW_LINE = 1;
+	
 	public static DynamicArray<String> POSITIVE_WORDS = null;
 	
 	public static DynamicArray<String> NEGATIVE_WORDS = null;
+	
+	public static String PROJECT_DIR;
+	public static String RESOURCE_DIR;
 	
 	/**
 	 * <code>SnowballStemmer</code> object that allows for <code>String</code> stemming.
@@ -25,14 +31,19 @@ public class Utilities {
 	 */
 	public static Stopwords STOPWORD_HANDLER = null;
 	
-	private final String POSITIVE_WORDS_DATA_FILE = "./Resources/Positive.txt";
-	private final String NEGATIVE_WORDS_DATA_FILE = "./Resources/Negative.txt";
+	private String POSITIVE_WORDS_DATA_FILE;
+	private String NEGATIVE_WORDS_DATA_FILE;
 	
 	public void initializeUtilities() {
 		STEMMER = new SnowballStemmer();
 		STOPWORD_HANDLER = new Stopwords();
 		POSITIVE_WORDS = new DynamicArray<String>();
 		NEGATIVE_WORDS = new DynamicArray<String>();
+		String userDir = System.getProperty("user.dir");
+		PROJECT_DIR = userDir.substring(0, userDir.indexOf("weka-tweeter")) + "weka-tweeter/";
+		RESOURCE_DIR = PROJECT_DIR + "Resources/";
+		POSITIVE_WORDS_DATA_FILE = RESOURCE_DIR + "Positive.txt";
+		NEGATIVE_WORDS_DATA_FILE = RESOURCE_DIR + "Negative.txt";
 		populatePositiveNegativeWords();
 	}
 	
@@ -71,6 +82,13 @@ public class Utilities {
 				System.exit(1);
 			}
 		}
+	}
+	
+	public static void log(String data, int option) {
+		if(option == ADD_NEW_LINE)
+			System.out.println(data);
+		else if(option == NO_NEW_LINE)
+			System.out.print(data);
 	}
 
 }

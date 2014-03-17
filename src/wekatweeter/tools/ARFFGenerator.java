@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import utils.DynamicArray;
 import utils.TweeterToken;
+import utils.Utilities;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -16,14 +17,14 @@ public class ARFFGenerator {
 	/**
 	 * Default relation value for an instance.
 	 */
-	private final String DEFAULT_RELATION_NAME = "opinion";
+	public static final String DEFAULT_RELATION_NAME = "opinion";
 	
 	/**
 	 * Categories for an instance. The <code>objective</code> tag is counted as <code>neutral</code>.
 	 */
 	private final String [] CATEGORIES = {"positive","negative","neutral"};
 	
-	private final String DEFAULT_SAVE_FILE_LOCATION = "./Resources/";
+	private final String DEFAULT_SAVE_FILE_LOCATION = Utilities.RESOURCE_DIR;
 	private final String DEFAULT_SAVE_FILE_NAME = "test.arff";
 	
 	private String fileName;
@@ -44,6 +45,10 @@ public class ARFFGenerator {
 		if(data == null) 
 			throw new IllegalArgumentException("null input data provided.");
 		generateARFFFile(data, DEFAULT_RELATION_NAME);
+	}
+	
+	public String getFileLocation() {
+		return this.fileLocation+this.fileName;
 	}
 	
 	public void generateARFFFile(DynamicArray<TweeterToken> data, String relationName) {

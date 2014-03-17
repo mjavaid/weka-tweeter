@@ -10,8 +10,7 @@ public class PreProcessor {
 	 * <code>Stopwords</code> objects.
 	 */
 	public PreProcessor() {
-		Utilities utils = new Utilities();
-		utils.initializeUtilities();
+		
 	}
 	
 	/**
@@ -24,6 +23,7 @@ public class PreProcessor {
 	 * @return The preprocessed document string.
 	 */
 	public String preprocess(String input, String category) {
+		input = input.toLowerCase();
 		String output = regexHandler(input);
 		output = removeStopwords(output, category);
 		output = stem(output);
@@ -129,8 +129,10 @@ public class PreProcessor {
 		PreProcessor p = new PreProcessor();
 		String text = p.preprocess(testString, "positive");
 		System.out.println(text);
-		text = "Happi Valentin Dai trend Februari June smh";
+		System.out.println(Utilities.POSITIVE_WORDS);
+		text = "sat movi harri ron christma ohlawd";
 		System.out.println(p.calculateWeight(text, "positive"));
+		
 	}
 
 }
