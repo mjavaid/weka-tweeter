@@ -91,17 +91,26 @@ public class WekaTweeter {
 			}
 		}
 		
-		Utilities.log("Calculating weights...", Utilities.NO_NEW_LINE);
+		Utilities.log("Calculating weights...", Utilities.ADD_NEW_LINE);
 		
 		tweeterData = weightHandler.finalizeNeutralWeights(tweeterData);
+		
+		Utilities.log("> Positive Instances...", Utilities.NO_NEW_LINE);
 		tweeterData = weightHandler.normalizeWeights(tweeterData, "positive");
-		tweeterData = weightHandler.normalizeWeights(tweeterData, "negative");
-		tweeterData = weightHandler.normalizeWeights(tweeterData, "neutral");
-
 		Utilities.log(" Done.", Utilities.ADD_NEW_LINE);
 		
+		Utilities.log("> Negative Instances...", Utilities.NO_NEW_LINE);
+		tweeterData = weightHandler.normalizeWeights(tweeterData, "negative");
+		Utilities.log(" Done.", Utilities.ADD_NEW_LINE);
+		
+		Utilities.log("> Neutral Instances...", Utilities.NO_NEW_LINE);
+		tweeterData = weightHandler.normalizeWeights(tweeterData, "neutral");
+		Utilities.log(" Done.", Utilities.ADD_NEW_LINE);
+		
+		Utilities.log("Creating ARFF File...", Utilities.NO_NEW_LINE);
 		ARFFGenerator generator = new ARFFGenerator();
 		generator.generateARFFFile(tweeterData, relationName);
+		Utilities.log(" Done.", Utilities.ADD_NEW_LINE);
 		
 		Utilities.log("ARFF File Created: ["+generator.getFileLocation()+"]", Utilities.ADD_NEW_LINE);
 	}
