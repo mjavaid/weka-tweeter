@@ -12,6 +12,12 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffSaver;
 
+/**
+ * Creates the <code>.arff</code> file for the tweeter data set provided for this assignment.
+ * 
+ * @author Muhammad Sajawal Javaid
+ * @version 1.0
+ */
 public class ARFFGenerator {
 	
 	/**
@@ -24,33 +30,70 @@ public class ARFFGenerator {
 	 */
 	private final String [] CATEGORIES = {"positive","negative","neutral"};
 	
+	/**
+	 * The default location for the generated <code>.arff</code> file. 
+	 */
 	private final String DEFAULT_SAVE_FILE_LOCATION = Utilities.RESOURCE_DIR;
+	
+	/**
+	 * The default name for the generated <code>.arff</code> file.
+	 */
 	private final String DEFAULT_SAVE_FILE_NAME = "test.arff";
 	
+	/**
+	 * The output name of the generated <code>.arff</code> file.
+	 */
 	private String fileName;
+	
+	/**
+	 * The output directory of the generated <code>.arff</code> file.
+	 */
 	private String fileLocation;
 	
-	// Constructor
+	/**
+	 * Initializes the output file name and directory to the default values.
+	 */
 	public ARFFGenerator() {
 		this.fileLocation = DEFAULT_SAVE_FILE_LOCATION;
 		this.fileName = DEFAULT_SAVE_FILE_NAME;
 	}
 	
+	/**
+	 * Initializes the output file name and directory to the provided arguments.
+	 * 
+	 * @param fileName The name of the generated <code>.arff</code> file.
+	 * @param fileLocation The output directory of the generated <code>.arff</code> file.
+	 */
 	public ARFFGenerator(String fileName, String fileLocation) {
 		this.fileLocation = fileLocation;
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * Returns the path to the generated <code>.arff</code> file.
+	 * @return The path to the generated <code>.arff</code> file.
+	 */
+	public String getFileLocation() {
+		return this.fileLocation+this.fileName;
+	}
+	
+	/**
+	 * Calls the <code>generateARFFFile</code> method with the provided tweet data set 
+	 * and the default relation name.
+	 * @param data The tweet data set.
+	 */
 	public void generateARFFFile(DynamicArray<TweeterToken> data) {
 		if(data == null) 
 			throw new IllegalArgumentException("null input data provided.");
 		generateARFFFile(data, DEFAULT_RELATION_NAME);
 	}
 	
-	public String getFileLocation() {
-		return this.fileLocation+this.fileName;
-	}
-	
+	/**
+	 * Generates the <code>.arff</code> file with the provided tweet data set and relation name.
+	 * 
+	 * @param data The tweet data set.
+	 * @param relationName The relation name of the data set.
+	 */
 	public void generateARFFFile(DynamicArray<TweeterToken> data, String relationName) {
 		if(data == null) 
 			throw new IllegalArgumentException("null input data provided.");

@@ -13,8 +13,49 @@ import wekatweeter.tools.ARFFGenerator;
 import wekatweeter.tools.PreProcessor;
 import wekatweeter.tools.WeightHandler;
 
+/**
+ * <p>The main gateway file to the <code><strong>weka-tweeter</strong></code> assignment.</p>
+ * 
+ * <p>Hosts the <code>main</code> method that is used to parse and process the 
+ * tweeter data set and generate a <code>.arff</code> that can be used by Weka 
+ * for data classification.</p>
+ * 
+ * <p>To execute this method, make sure that you are in the <code>weka-tweeter
+ * /bin/</code> directory and then run the following command from the console:
+ * </p>
+ * 
+ * <ul>
+ * 		<li>
+ * 			<strong>Mac OSX & Linux:</strong><br/>
+ * 			<ul><li>
+ * 			<code>
+ * java -cp <strong>/Path/to/</strong>weka.jar:<strong>/Path/to/</strong>snowball-20051019.jar:.
+ *  ./main/WekaTweeter <strong>&lt;data_source_path&gt;</strong> <strong>[&lt;relation_name&gt;]</strong>
+ * 			</code>
+ * 			</li></ul>
+ * 		</li>
+ * 
+ * 		<li>
+ * 			<strong>Windows:</strong><br/>
+ * 			<ul><li>
+ * 			<code>
+ * java -cp <strong>/Path/to/</strong>weka.jar;<strong>/Path/to/</strong>snowball-20051019.jar;.
+ *  ./main/WekaTweeter <strong>&lt;data_source_path&gt;</strong> <strong>[&lt;relation_name&gt;]</strong>
+ * 			</code>
+ * 			</li></ul>
+ * 		</li>
+ * </ul>
+ * 
+ * @author Muhammad Sajawal Javaid
+ * @version 1.0
+ */
 public class WekaTweeter {
 	
+	/**
+	 * Gateway method to the <code><strong>weka-tweeter</strong></code> assignment.
+	 * 
+	 * @param args The path to the tweeter data and an optional relation name.
+	 */
 	public static void main(String [] args) {
 		if(args.length < 1) {
 			System.out.println("Error::Usage: java ARFFGenerator.java <data_source_path> [<relation_name>]");
@@ -43,7 +84,7 @@ public class WekaTweeter {
 			PreProcessor preprocessor = new PreProcessor();
 			
 			/*
-			 * Read data from the corpus file and create a data entry for each corpus document
+			 * Read data from the corpus file and create a data entry for each corpus document.
 			 */
 			String line = reader.readLine();
 			tweeterData = new DynamicArray<TweeterToken>();
@@ -65,7 +106,7 @@ public class WekaTweeter {
 				} else if(category.equals("negative")) {
 					weight = weightHandler.calcNegativeWeight(sentence);
 				} else if(category.equals("neutral")) {
-					weight = weightHandler.calcNeutralWeight(sentence);
+					weight = weightHandler.calcNeutralDeviation(sentence);
 				}
 				TweeterToken token = new TweeterToken(sentence, category, weight);
 				tweeterData.insert(token);
@@ -91,6 +132,9 @@ public class WekaTweeter {
 			}
 		}
 		
+		/*
+		 * Calculate weights for all the data instances.
+		 */
 		Utilities.log("Calculating weights...", Utilities.ADD_NEW_LINE);
 		
 		tweeterData = weightHandler.finalizeNeutralWeights(tweeterData);
@@ -107,6 +151,9 @@ public class WekaTweeter {
 		tweeterData = weightHandler.normalizeWeights(tweeterData, "neutral");
 		Utilities.log(" Done.", Utilities.ADD_NEW_LINE);
 		
+		/*
+		 * Create the output .arff file.
+		 */
 		Utilities.log("Creating ARFF File...", Utilities.NO_NEW_LINE);
 		ARFFGenerator generator = new ARFFGenerator();
 		generator.generateARFFFile(tweeterData, relationName);

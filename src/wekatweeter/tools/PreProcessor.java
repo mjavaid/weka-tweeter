@@ -1,26 +1,32 @@
 package wekatweeter.tools;
 
-import utils.DynamicArray;
 import utils.Utilities;
 
+/**
+ * <p>Provides the functionality of processing data before it is submitted to Weka for
+ * data classification.</p>
+ * 
+ * <p>Performs the following preprocessing:
+ * 	<ul>
+ * 		<li>Data conversion to lower case.</li>
+ * 		<li>Stopword removal.</li>
+ * 		<li>Word stemming.</li>
+ * 		<li>Removal of links, numerals and special characters.</li>
+ * 	</ul>
+ * </p>
+ * 
+ * @author Muhammad Sajawal Javaid
+ * @version 1.0
+ */
 public class PreProcessor {
-	
-	/**
-	 * PreProcessor constructor, that initializes the <code>SnowballStemmer</code> and 
-	 * <code>Stopwords</code> objects.
-	 */
-	public PreProcessor() {
-		
-	}
 	
 	/**
 	 * Public interface for the <code>PreProcessor</code> class. Can be called to perform 
 	 * preprocessing on the document corpus.
 	 * 
-	 * It first removes the stopwords from the document and then stems the remaining tokens.
-	 * 
 	 * @param input A document string in the corpus.
-	 * @return The preprocessed document string.
+	 * @param category The category classification of the document.
+	 * @return The processed document string.
 	 */
 	public String preprocess(String input, String category) {
 		input = input.toLowerCase();
@@ -28,36 +34,6 @@ public class PreProcessor {
 		output = removeStopwords(output, category);
 		output = stem(output);
 		return output;
-	}
-	
-	public double calculateWeight(String input, String category) {
-		double weight = 1.0;
-		DynamicArray<String> weightWords = null;
-		if(category.equals("positive"))
-			weightWords = Utilities.POSITIVE_WORDS;
-		else if(category.equals("negative")) 
-			weightWords = Utilities.NEGATIVE_WORDS;
-		else if(category.equals("neutral")) {
-			return 1.0;
-			/*double positive = 0.0;
-			double negative = 0.0;
-			String [] tokens = input.split(" ");
-			for(int i = 0; i < tokens.length; i++) {
-				if(Utilities.NEGATIVE_WORDS.exists(tokens[i]))
-					negative++;
-				else if(Utilities.POSITIVE_WORDS.exists(tokens[i]))
-					positive++;
-			}
-			return 1.0 + Math.abs(negative - positive);*/
-		}
-		if(weightWords == null) return weight;
-		String [] tokens = input.split(" ");
-		for(int i = 0; i < tokens.length; i++) {
-			if(weightWords.exists(tokens[i])) {
-				weight++;
-			}
-		}
-		return weight;
 	}
 	
 	/**
@@ -80,6 +56,12 @@ public class PreProcessor {
 		return output.trim();
 	}
 	
+	/**
+	 * Removes all links, numerals and special characters from the provided document.
+	 * 
+	 * @param input A document string in the corpus.
+	 * @return The stripped document string.
+	 */
 	private String regexHandler(String input) {
 		String output = "";
 		String [] tokens = input.split(" ");
@@ -118,21 +100,6 @@ public class PreProcessor {
 			}
 		}
 		return output.trim();
-	}
-	
-	/*
-	 * PreProcessor testing code in absence of JUnit Testing
-	 */
-	public static void main(String[] args) {
-		//String testString = "some abound accede abhor the";
-		String testString = "taylor swift come ed sheeran june perf new iv heard night";
-		PreProcessor p = new PreProcessor();
-		String text = p.preprocess(testString, "positive");
-		System.out.println(text);
-		System.out.println(Utilities.POSITIVE_WORDS);
-		text = "sat movi harri ron christma ohlawd";
-		System.out.println(p.calculateWeight(text, "positive"));
-		
 	}
 
 }
