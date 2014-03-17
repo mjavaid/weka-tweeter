@@ -29,8 +29,8 @@ Once the arff file has been generated, it shall be passed to the **Weka** applic
 | Task | Status |
 | ---- |:------:|:-----:|
 | [ARFF Generation](#arff-generation) | `Complete` |
-| [ARFF Optimization](#arff-optimization) | `In Progress` |
-| [Result Generation](#result-generation) | `In Progress` |
+| [ARFF Optimization](#arff-optimization) | `Complete` |
+| [Result Generation](#result-generation) | `Complete` |
 | [Report Creation](#report-creation) | `Not Started` |
 
 ====
