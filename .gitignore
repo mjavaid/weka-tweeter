@@ -1,7 +1,7 @@
 # Git Ignore File for weka-tweeter
 
 # Ignore .class files in bin/
-bin/
+# bin/
 
 # Ignore .DS_Store files from OS X
 *.DS_Store
