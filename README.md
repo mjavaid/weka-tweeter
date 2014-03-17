@@ -52,7 +52,24 @@ The corpus is parsed and preprocessed and an arff format file is created from th
 The code can be run with the following command through the command line interface or by importing the project into Eclipse. Please note that to run the code from CLI, you must add the **weka.jar** and **snowballstemmer.jar** files to the `CLASSPATH`. Both these files can be obtained from links in the [Important Links](#important-links) section:
 
 ```
-$ java ARFFGenerator.java <data_source_path> [<relation_name>]
+$ # Mac OSX
+$ # Working Dir: /Path/To/Project/../weka-tweeter/bin/
+$ # Assuming weka-tweeter/bin/ directory stores class files AND the structure of /bin/ is as follows:
+$ #
+$ # weka-tweeter/
+$ #    bin/
+$ #       main/
+$ #           WekaTweeter.class
+$ #       utils/
+$ #           DynamicArray.class
+$ #           TweeterToken.class
+$ #           Utilities.class
+$ #       wekatweeter/
+$ #           ARFFGenerator.class
+$ #           PreProcessor.class
+$ #           WeightHandler.class
+$
+$ java -cp /Path/to/weka.jar:/Path/to/snowball-20051019.jar:. ./main/WekaTweeter <data_source_path>
 ```
 
 The output file, `test.arff`, is created and stored in the `Resources/` directory.
