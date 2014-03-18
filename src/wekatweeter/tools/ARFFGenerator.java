@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import utils.DynamicArray;
 import utils.TweeterToken;
-import utils.Utilities;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -33,7 +32,7 @@ public class ARFFGenerator {
 	/**
 	 * The default location for the generated <code>.arff</code> file. 
 	 */
-	private final String DEFAULT_SAVE_FILE_LOCATION = Utilities.RESOURCE_DIR;
+	private final String DEFAULT_SAVE_FILE_LOCATION = System.getProperty("user.dir") + File.separator;
 	
 	/**
 	 * The default name for the generated <code>.arff</code> file.
@@ -56,6 +55,7 @@ public class ARFFGenerator {
 	public ARFFGenerator() {
 		this.fileLocation = DEFAULT_SAVE_FILE_LOCATION;
 		this.fileName = DEFAULT_SAVE_FILE_NAME;
+		System.out.println(DEFAULT_SAVE_FILE_LOCATION);
 	}
 	
 	/**

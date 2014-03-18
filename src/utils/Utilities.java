@@ -1,9 +1,9 @@
 package utils;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import weka.core.Stopwords;
@@ -40,16 +40,6 @@ public class Utilities {
 	public static DynamicArray<String> NEGATIVE_WORDS = null;
 	
 	/**
-	 * The directory where the project is stored on the system.
-	 */
-	public static String PROJECT_DIR;
-	
-	/**
-	 * The directory where the project resources are located.
-	 */
-	public static String RESOURCE_DIR;
-	
-	/**
 	 * <code>SnowballStemmer</code> object that allows for <code>String</code> stemming.
 	 */
 	public static SnowballStemmer STEMMER = null;
@@ -62,12 +52,12 @@ public class Utilities {
 	/**
 	 * Path to the Positive Words file obtained from <code>GeneralInquiry</code>.
 	 */
-	private String POSITIVE_WORDS_DATA_FILE;
+	private String POSITIVE_WORDS_DATA_FILE = "resources/Positive.txt";
 	
 	/**
 	 * Path to the Negative Words file obtained from <code>GeneralInquiry</code>.
 	 */
-	private String NEGATIVE_WORDS_DATA_FILE;
+	private String NEGATIVE_WORDS_DATA_FILE = "resources/Negative.txt";
 	
 	/**
 	 * Initializes the global variables that will be used for pre-processing.
@@ -77,13 +67,6 @@ public class Utilities {
 		STOPWORD_HANDLER = new Stopwords();
 		POSITIVE_WORDS = new DynamicArray<String>();
 		NEGATIVE_WORDS = new DynamicArray<String>();
-		
-		String userDir = System.getProperty("user.dir");
-		PROJECT_DIR = userDir.substring(0, userDir.indexOf("weka-tweeter")) + "weka-tweeter/";
-		RESOURCE_DIR = PROJECT_DIR + "Resources/";
-		POSITIVE_WORDS_DATA_FILE = RESOURCE_DIR + "Positive.txt";
-		NEGATIVE_WORDS_DATA_FILE = RESOURCE_DIR + "Negative.txt";
-		
 		populatePositiveNegativeWords();
 	}
 	
@@ -93,11 +76,11 @@ public class Utilities {
 	 * the polarity of a data instance.
 	 */
 	private void populatePositiveNegativeWords() {
-		FileInputStream fis = null;
+		InputStream is = null;
 		BufferedReader reader = null;
 		try {
-			fis = new FileInputStream(POSITIVE_WORDS_DATA_FILE);
-			reader = new BufferedReader(new InputStreamReader(fis));
+			is = Utilities.class.getResourceAsStream(POSITIVE_WORDS_DATA_FILE);
+			reader = new BufferedReader(new InputStreamReader(is));
 			String line = reader.readLine();
 			while(line != null) {
 				if(! line.equals("")) POSITIVE_WORDS.insert(STEMMER.stem(line.toLowerCase()));
@@ -105,8 +88,8 @@ public class Utilities {
 			}
 			line = null;
 			
-			fis = new FileInputStream(NEGATIVE_WORDS_DATA_FILE);
-			reader = new BufferedReader(new InputStreamReader(fis));
+			is = Utilities.class.getResourceAsStream(NEGATIVE_WORDS_DATA_FILE);
+			reader = new BufferedReader(new InputStreamReader(is));
 			line = reader.readLine();
 			while(line != null) {
 				if(! line.equals("")) NEGATIVE_WORDS.insert(STEMMER.stem(line.toLowerCase()));
@@ -121,7 +104,7 @@ public class Utilities {
 		} finally {
 			try {
 				reader.close();
-				fis.close();
+				is.close();
 			} catch (IOException ex) {
 				System.err.println("Error closing the file readers!");
 				System.exit(1);
