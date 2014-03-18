@@ -55,26 +55,11 @@ The code can be run with the following command through the command line interfac
 
 ```
 $ # Mac OSX
-$ # Working Dir: /Path/To/Project/../weka-tweeter/bin/
-$ # Assuming weka-tweeter/bin/ directory stores class files AND the structure of /bin/ is as follows:
-$ #
-$ # weka-tweeter/
-$ #    bin/
-$ #       main/
-$ #           WekaTweeter.class
-$ #       utils/
-$ #           DynamicArray.class
-$ #           TweeterToken.class
-$ #           Utilities.class
-$ #       wekatweeter/
-$ #           ARFFGenerator.class
-$ #           PreProcessor.class
-$ #           WeightHandler.class
 $
-$ java -cp /Path/to/weka.jar:/Path/to/snowball-20051019.jar:. ./main/WekaTweeter <data_source_path>
+$ java -jar weka-tweeter.jar <data_source_path> [<relation_name>]
 ```
 
-The output file, `test.arff`, is created and stored in the `Resources/` directory.
+The output file, `test.arff`, is created and stored in the same directory as the `weka-tweeter.jar` file.
 
 ====
 
