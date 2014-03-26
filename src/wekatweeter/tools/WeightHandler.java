@@ -15,6 +15,8 @@ import utils.Utilities;
  */
 public class WeightHandler {
 	
+	final double WEIGHT_PER_EXCLAMATION_MARK = 1.0;
+	
 	/**
 	 * Calculates the positive weight of a tweet data instance.
 	 * 
@@ -29,6 +31,7 @@ public class WeightHandler {
 				weight++;
 			}
 		}
+		weight += findExclamationMarksWeight(input);
 		return weight;
 	}
 	
@@ -46,6 +49,7 @@ public class WeightHandler {
 				weight++;
 			}
 		}
+		weight += findExclamationMarksWeight(input);
 		return weight;
 	}
 	
@@ -123,6 +127,25 @@ public class WeightHandler {
 				max = weight;
 		}
 		return max;
+	}
+	
+	private double findExclamationMarksWeight(String sentence) {
+		int numExclamations = 0;
+		for(int i=0; i < sentence.length();) {
+			if(sentence.charAt(i) == '!') {
+				int temp = 1;
+				while(++i < sentence.length()) {
+					if(sentence.charAt(i) == '!') {
+						temp += 1;
+					} else {
+						i++;
+						break;
+					}
+				}
+				if(numExclamations < temp) numExclamations = temp;
+			} else i++;
+		}
+		return numExclamations * WEIGHT_PER_EXCLAMATION_MARK;
 	}
 	
 }

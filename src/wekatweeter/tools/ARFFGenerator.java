@@ -55,7 +55,6 @@ public class ARFFGenerator {
 	public ARFFGenerator() {
 		this.fileLocation = DEFAULT_SAVE_FILE_LOCATION;
 		this.fileName = DEFAULT_SAVE_FILE_NAME;
-		System.out.println(DEFAULT_SAVE_FILE_LOCATION);
 	}
 	
 	/**

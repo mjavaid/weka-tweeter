@@ -70,8 +70,10 @@ public class PreProcessor {
 				output += tokens[i] + " ";
 			}
 		}
-		output = output.replaceAll("[0-9]","");
-		output = output.replaceAll("[\\W&&[^\\s{1}]]", "");
+		//output = output.replaceAll("[0-9]","");
+		//output = output.replaceAll("[\\W&&[^\\s{1}]]", "");
+		output = output.replaceAll("[0-9]|[^\\w!\\s]", "");
+		output = output.replaceAll(" +", " ");
 		return output;
 	}
 	
