@@ -15,6 +15,9 @@ import utils.Utilities;
  */
 public class WeightHandler {
 	
+	/**
+	 * Predefined weight threshold for an exclamation mark character.
+	 */
 	final double WEIGHT_PER_EXCLAMATION_MARK = 1.0;
 	
 	/**
@@ -129,6 +132,13 @@ public class WeightHandler {
 		return max;
 	}
 	
+	/**
+	 * Finds the largest cluster of exclamation marks in a sentence and then
+	 * calculates its weight.
+	 * 
+	 * @param sentence The sentence to check the Exclamation Mark weight for.
+	 * @return The weight of the largest exclamation mark cluster.
+	 */
 	private double findExclamationMarksWeight(String sentence) {
 		int numExclamations = 0;
 		for(int i=0; i < sentence.length();) {
